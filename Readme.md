@@ -54,7 +54,7 @@ docker-compose up -d
 
 ### 5. Instale os nodes do WAHA no N8N:
 
-*Vá no painel settings > community nodes, clique em "install a community node" e digite:
+*Vá no painel settings > community nodes, clique em "install a community node" e digite:*
 ```bash
 n8n-nodes-waha
 ```
