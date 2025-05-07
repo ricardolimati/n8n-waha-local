@@ -1,5 +1,11 @@
 # Tutorial: Instalação e Configuração da Estrutura para Agente de IA Local
 
+---
+
+![WAHA+n8n](./imagens/WAHA+n8n.png){: style="width: 100px; display: block; margin-left: auto; margin-right: auto"}
+
+---
+
 ## Introdução
 
 Este tutorial vai guiar você através do processo de instalação e configuração da nossa estrutura para criação de um Agente de IA Local, incliuindo os componentes:
@@ -12,104 +18,93 @@ Este tutorial vai guiar você através do processo de instalação e configuraç
 ## Pré-requisitos
 
 - Ter o Docker Desktop instalado [Baixe aqui](https://www.docker.com/get-started/)
-- Windows 10, 11 ou MacOs.
+- Sistema operacional Windows 10, Windows 11 ou MacOs
 
 ## Passo a Passo
 
-### 1. Faça download deste repositório
+### 1. Faça download deste repositório:
+![Baixando o repositório](./imagens/passo1.gif)
 
-![Preparação do Ambiente](./imagens/passo1.png)
 
-*Descrição: Nesta etapa, você vai preparar seu ambiente para a instalação.*
+### 2. Extraia o arquivo e abra a pasta:
+![Extraindo o arquivo](./imagens/passo1.2.gif)
 
-### 2. Clone do Repositório
 
-![Clone do Repositório](./imagens/passo2.png)
-
-*Descrição: Como obter os arquivos necessários para a instalação.*
-
-### 3. Configuração do Docker Compose
-
-![Configuração do Docker Compose](./imagens/passo3.png)
-
-*Descrição: Ajustes necessários no arquivo docker-compose.yml.*
-
-### 4. Resolução de Problemas de Compatibilidade
-
-![Resolução de Problemas](./imagens/passo4.png)
-
-*Descrição: Como resolver o erro "no matching manifest for linux/arm64/v8" e outros problemas de compatibilidade de plataforma.*
-
-### 5. Inicialização dos Serviços
-
-![Inicialização dos Serviços](./imagens/passo5.png)
-
-*Descrição: Como iniciar todos os serviços com Docker Compose.*
-
-### 6. Configuração do WAHA
-
-![Configuração do WAHA](./imagens/passo6.png)
-
-*Descrição: Como configurar o WAHA para conectar ao WhatsApp.*
-
-### 7. Configuração do n8n
-
-![Configuração do n8n](./imagens/passo7.png)
-
-*Descrição: Como acessar e configurar o n8n para criar seus fluxos de trabalho.*
-
-### 8. Integração com o Banco de Dados
-
-![Integração com o Banco de Dados](./imagens/passo8.png)
-
-*Descrição: Como configurar a conexão com o PostgreSQL.*
-
-### 9. Criação do Seu Primeiro Fluxo de Trabalho
-
-![Primeiro Fluxo de Trabalho](./imagens/passo9.png)
-
-*Descrição: Como criar um fluxo de trabalho básico no n8n que integra com o WhatsApp.*
-
-### 10. Teste e Validação
-
-![Teste e Validação](./imagens/passo10.png)
-
-*Descrição: Como testar se tudo está funcionando corretamente.*
-
-## Solução de Problemas Comuns
-
-### Problema: Incompatibilidade de Plataforma
-
+### 3. Abra um terminal na pasta e digite o comando:
+```bash
+docker-compose up -d
 ```
-matching manifest for linux/arm64/v8 in the manifest list entries: no match for platform in manifest: not found
+*Isso irá baixar e instalar todos os programas no seu computador local.*
+
+![Comando docker-compose](./imagens/passo2.gif)
+
+
+### 4. Acessando os programas:
+
+*Você pode acessar os programas no seu navegador clicando no link do container  através do seu aplicativo Docker Desktop.*
+
+![Acessando os programas](./imagens/passo4.gif)
+
+
+### 5. Instale os nodes do WAHA no N8N:
+
+*Vá no painel settings > community nodes, clique em "install a community node" e digite:
+```bash
+n8n-nodes-waha
 ```
 
-**Solução:**
+![Instalando nodes do WAHA](./imagens/passo5.gif)
 
-*Descreva aqui a solução para o problema de compatibilidade de plataforma.*
 
-### Problema: Falha na Conexão com o WhatsApp
+### 6. Conectando credenciais:
 
-**Solução:**
+*Ao conectar as credenciais dos outros programas no N8N, você deve se atentar ao seguinte detalhe: **SEMPRE SUBSTITUA a palavra "localhost" por "host.docker.internal"**.*
 
-*Descreva aqui a solução para problemas de conexão com o WhatsApp.*
+```bash
+host.docker.internal
+```
 
-### Problema: Erros no n8n
+*Todos os users e senhas estão configurados como "default".* 
 
-**Solução:**
+*Exemplo:*
 
-*Descreva aqui a solução para problemas comuns no n8n.*
+![Conectando credenciais](./imagens/passo6.gif)
+
+## Integração do Whatsapp no N8N
+
+### 1. Conecte seu whatsapp no WAHA através do Qr Code no dashboard:
+
+![Conectando whatsapp](./imagens/passo7.gif)
+
+### 2. Conecte o WAHA ao N8N:
+
+*Deixei a variável global do Webhook configurada como:*
+```bash
+http://host.docker.internal:5678/webhook/webhook
+```
+*Então, tudo que você precisa fazer é criar um novo workflow, adicionar um webhook e configurá-lo da seguinte forma:*
+
+![Conectando WAHA ao N8N](./imagens/passo8.png)
+
+*Você verá os eventos que chegaram no seu painel "executions" dentro do workflow do n8n.*
+
+*Você também pode copiar a URL de teste e colar diretamente nas configurações da sessão no dashboard do Waha:*
+
+![Conectando WAHA ao N8N](./imagens/passo9.gif)
+
+*Essas URLS que colamos através do dashboard somem após reiniciarmos o container, então, toda vez que quiser desenvolver, lembre-se de copiar a URL de teste e colar diretamente nas configurações da sessão no dashboard do Waha.*
+
+![Dados dentro do N8N](./imagens/passo10.png)
 
 ## Conclusão
 
-Parabéns! Você agora tem uma estrutura completa de Agente de IA Local funcionando. Esta configuração permite que você crie automações poderosas que podem interagir com usuários através do WhatsApp.
+Parabéns! Você agora tem uma estrutura completa para criar seu Agente de IA de forma Local funcionando!
+
 
 ## Recursos Adicionais
 
-- [Documentação do WAHA](https://github.com/waha-project/waha)
-- [Documentação do n8n](https://docs.n8n.io/)
-- [Documentação do PostgreSQL](https://www.postgresql.org/docs/)
+- [Documentação do WAHA](https://waha.devlike.pro/docs/overview/introduction)
 
 ---
 
-*Última atualização: Maio 2025*
+*Última atualização: 07/05/2025*
