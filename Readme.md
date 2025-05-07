@@ -28,8 +28,10 @@ Este tutorial vai guiar você através do processo de instalação e configuraç
 ![Baixando o repositório](./imagens/passo1.gif)
 
 
+
 ### 2. Extraia o arquivo e abra a pasta:
 ![Extraindo o arquivo](./imagens/passo1.2.gif)
+
 
 
 ### 3. Abra um terminal na pasta e digite o comando:
@@ -41,11 +43,13 @@ docker-compose up -d
 ![Comando docker-compose](./imagens/passo2.gif)
 
 
+
 ### 4. Acessando os programas:
 
 *Você pode acessar os programas no seu navegador clicando no link do container  através do seu aplicativo Docker Desktop.*
 
 ![Acessando os programas](./imagens/passo4.gif)
+
 
 
 ### 5. Instale os nodes do WAHA no N8N:
@@ -56,6 +60,7 @@ n8n-nodes-waha
 ```
 
 ![Instalando nodes do WAHA](./imagens/passo5.gif)
+
 
 
 ### 6. Conectando credenciais:
@@ -72,11 +77,15 @@ host.docker.internal
 
 ![Conectando credenciais](./imagens/passo6.gif)
 
+---
+
 ## Integração do Whatsapp no N8N
 
 ### 1. Conecte seu whatsapp no WAHA através do Qr Code no dashboard:
 
 ![Conectando whatsapp](./imagens/passo7.gif)
+
+
 
 ### 2. Conecte o WAHA ao N8N:
 
@@ -97,6 +106,8 @@ http://host.docker.internal:5678/webhook/webhook
 *Essas URLS que colamos através do dashboard somem após reiniciarmos o container, então, toda vez que quiser desenvolver, lembre-se de copiar a URL de teste e colar diretamente nas configurações da sessão no dashboard do Waha.*
 
 ![Dados dentro do N8N](./imagens/passo10.png)
+
+---
 
 ## Conclusão
 
