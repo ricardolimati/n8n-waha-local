@@ -2,7 +2,9 @@
 
 ---
 
-![WAHA+n8n](./imagens/WAHA+n8n.png){: style="width: 100px; display: block; margin-left: auto; margin-right: auto"}
+<div align="center">
+  <img src="./imagens/WAHA+n8n.png" alt="WAHA+n8n" width="200">
+</div>
 
 ---
 
