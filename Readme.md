@@ -10,7 +10,7 @@
 
 ## Introdução
 
-Este tutorial vai guiar você através do processo de instalação e configuração da nossa estrutura para criação de um Agente de IA Local, incliuindo os componentes:
+Este tutorial vai guiar você através do processo de instalação e configuração da nossa estrutura para criação de um Agente de IA Local, incluindo os componentes:
 
 - **WAHA**: API de Whatsapp gratuita
 - **n8n**: Plataforma de automação
