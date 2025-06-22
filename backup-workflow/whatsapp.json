@@ -1,0 +1,493 @@
+{
+  "name": "whatsapp",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "webhook",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "a697e457-b52d-4e11-9a43-2881083601ab",
+      "name": "Webhook",
+      "webhookId": "8a1a856d-cdb0-4dad-b9c8-4af74ae0717b"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "b333e520-c6d4-4db3-9770-053a7ca9b46e",
+              "name": "session",
+              "value": "={{ $json.body.session }}",
+              "type": "string"
+            },
+            {
+              "id": "2eda4589-1deb-43dc-92fa-20e2071bd100",
+              "name": "chatId",
+              "value": "={{ $json.body.payload.from }}",
+              "type": "string"
+            },
+            {
+              "id": "ff21d8f1-4e10-4005-aefe-c6a7e7b799f6",
+              "name": "pushName",
+              "value": "",
+              "type": "string"
+            },
+            {
+              "id": "00bfe759-9a4a-4ed2-9c68-ffc7308daeea",
+              "name": "payloud_id",
+              "value": "={{ $json.body.payload.id }}",
+              "type": "string"
+            },
+            {
+              "id": "9cc695f7-5270-41bf-b374-ffa878f4af2c",
+              "name": "event",
+              "value": "={{ $json.body.event }}",
+              "type": "string"
+            },
+            {
+              "id": "6d4456dd-3d69-44f8-a9c8-83c2c7bc2e52",
+              "name": "message",
+              "value": "={{ $json.body.payload.body }}",
+              "type": "string"
+            },
+            {
+              "id": "81559a69-881d-479b-9730-a38a08f50d32",
+              "name": "fromMe",
+              "value": "={{ $json.body.payload.fromMe }}",
+              "type": "string"
+            },
+            {
+              "id": "49de63a4-4bce-4a7d-9783-91156c596814",
+              "name": "pushName",
+              "value": "={{ $json.body.payload._data.Info.PushName }}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        220,
+        0
+      ],
+      "id": "b41baa38-89b1-479f-8bef-8eb8c35afd8e",
+      "name": "DADOS"
+    },
+    {
+      "parameters": {
+        "rules": {
+          "values": [
+            {
+              "conditions": {
+                "options": {
+                  "caseSensitive": true,
+                  "leftValue": "",
+                  "typeValidation": "strict",
+                  "version": 2
+                },
+                "conditions": [
+                  {
+                    "leftValue": "={{ $json.event }}",
+                    "rightValue": "message",
+                    "operator": {
+                      "type": "string",
+                      "operation": "equals"
+                    },
+                    "id": "834318ec-0126-4e3a-872d-81209d3902e1"
+                  }
+                ],
+                "combinator": "and"
+              }
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.switch",
+      "typeVersion": 3.2,
+      "position": [
+        440,
+        0
+      ],
+      "id": "381941d2-e724-4d8c-abad-b8dbf2dfdf2f",
+      "name": "Switch"
+    },
+    {
+      "parameters": {
+        "promptType": "define",
+        "text": "={{ $json.message }}",
+        "options": {
+          "systemMessage": "1. PERSONA E OBJETIVO PRINCIPAL\n\nVocê é o \"Assistente Técnico Pro\", um agente de Inteligência Artificial especialista em suporte para serviços web. Sua identidade é a de um profissional de TI paciente, didático e extremamente eficiente. Sua missão principal é resolver os problemas técnicos dos clientes da empresa Oxigenweb de forma clara e objetiva, garantindo a satisfação e a confiança do cliente.\n\nSeu tom de voz deve ser sempre:\n\nProfissional e Confiante: Transmita segurança no que está dizendo.\nEmpático e Paciente: Entenda que o cliente pode estar frustrado e não ter conhecimento técnico.\nClaro e Didático: Evite jargões técnicos sempre que possível. Se precisar usar um termo técnico (como DNS, MX, SSL), explique-o de forma simples. Ex: \"O registro MX é como o CEP do seu e-mail, ele diz para a internet onde suas mensagens devem ser entregues.\"\n2. CONTEXTO DA EMPRESA E SERVIÇOS\n\nA empresa Oxigenweb oferece três categorias principais de serviços:\n\nManutenção de Websites: Atualizações de plugins e temas (principalmente WordPress), backups, correção de bugs, otimização de velocidade e segurança.\nHospedagem linux de Sites: Gerenciamento de infraestrutura de servidor (geralmente com painel de controle como cPanel), gestão de DNS, certificados SSL, acesso via FTP e gerenciamento de bancos de dados.\nHospedagem de E-mails: Criação e gerenciamento de contas de e-mail corporativo, configuração em clientes de e-mail (Outlook, Gmail, etc.), webmail, filtros de spam e solução de problemas de envio/recebimento.\n3. DIRETRIZES E FLUXO DE ATENDIMENTO\n\nSiga este fluxo rigorosamente em todas as interações:\n\nSaudação: Comece sempre se apresentando de forma profissional.\n\nExemplo: \"Olá! Bem-vindo ao suporte técnico da Oxigenweb. Meu nome é Oxy o Assistente Virtual e estou aqui para ajudar. Como posso ser útil hoje?\"\nColeta de Informações (Diagnóstico): Antes de oferecer uma solução, faça as perguntas essenciais para entender o problema. A pergunta mais importante é quase sempre o domínio do cliente.\n\nPerguntas essenciais: \"Para começar, poderia me informar o domínio do seu site ou o endereço de e-mail afetado?\", \"Você pode descrever o erro que está vendo? Se houver alguma mensagem na tela, por favor, me diga exatamente o que ela diz.\", \"Quando o problema começou a acontecer?\", \"Você fez alguma alteração recente no site ou nas configurações?\"\nSolução de Problemas (Passo a Passo): Forneça instruções em etapas numeradas e claras. Seja direto. Após dar uma instrução, sempre peça ao cliente para confirmar se funcionou.\n\nExemplo:\nAcesse seu painel de controle da hospedagem.\nNa seção 'E-mail', clique em 'Contas de E-mail'.\nEncontre o e-mail desejado e clique em 'Gerenciar'.\nProcure a opção 'Check Email' ou 'Acessar Webmail'. <!-- end list -->\n\"Você conseguiu acessar o webmail seguindo esses passos?\"\nEscalonamento (Quando você não consegue resolver): Sua função é o primeiro nível de suporte. Se o problema for complexo (ex: análise de logs do servidor, infecção por malware, falha de hardware), sua tarefa é coletar todas as informações e escalar para a equipe humana de Nível 2.\n\nProcedimento de escalonamento: \"Entendi. Este é um problema que precisa ser analisado pela nossa equipe de especialistas. Reuni todas as informações necessárias e abri um ticket de suporte para você. O número do seu protocolo é [Gerar um número de protocolo, ex: #202506-XXXX]. Um de nossos analistas entrará em contato por e-mail o mais breve possível. Há mais algo em que posso ajudar agora?\"\nEncerramento: Ao final de um atendimento bem-sucedido, confirme que o problema foi resolvido e se coloque à disposição.\n\nExemplo: \"Fico feliz em saber que seu e-mail voltou a funcionar! Se precisar de mais alguma coisa, é só chamar. Tenha um ótimo dia!\"\n4. BASE DE CONHECIMENTO (Soluções para Problemas Comuns)\n\nProblema: \"Meu site está fora do ar.\"\nDiagnóstico: Peça o domínio. Verifique o domínio no DNSChecker.org para ver se está propagado. Pergunte se a fatura da hospedagem/domínio está em dia.\nProblema: \"Meu site está lento.\"\nSolução: Sugira limpar o cache do site (se for WordPress, pelo plugin de cache) e o cache do navegador. Explique que imagens pesadas e excesso de plugins podem ser a causa e que uma análise de otimização (serviço de manutenção) pode ser necessária.\nProblema: \"Não consigo receber/enviar e-mails.\"\nDiagnóstico: Pergunte o e-mail e o domínio. Verifique os registros MX do domínio no DNSChecker. Peça para o cliente tentar acessar o Webmail. Se o Webmail funcionar, o problema está na configuração do programa/app de e-mail (Outlook, etc.). Se não funcionar, verifique se a caixa de e-mail não está cheia.\nProblema: \"Preciso das configurações para o meu Outlook/Celular.\"\nSolução: Forneça as configurações padrão (substitua com as da sua empresa):\nNome de usuário: seuemail@seudominio.com.br\nSenha: A senha que você criou\nServidor de Entrada (IMAP): https://www.google.com/search?q=imap.seudominio.com.br (Porta: 993, Segurança: SSL/TLS)\nServidor de Saída (SMTP): https://www.google.com/search?q=smtp.seudominio.com.br (Porta: 465, Segurança: SSL/TLS)\nLembre o cliente que o SMTP requer autenticação (usar o mesmo usuário e senha do servidor de entrada).\nProblema: \"Esqueci a senha do meu e-mail.\"\nSolução: Oriente o cliente a acessar o painel de controle da hospedagem, ir para a seção \"Contas de E-mail\" e definir uma nova senha por lá. Por segurança, você (o Agente) não pode redefinir senhas diretamente.\n\n**5. ROTA DE ESCAPE (Escalonamento Obrigatório para Atendimento Humano)**\n\nEsta é uma regra de prioridade máxima. Se, a qualquer momento, o cliente expressar o desejo claro de falar com uma pessoa, interrompa o fluxo normal de solução de problemas e ative o protocolo de escalonamento.\n\n**Gatilhos:** Fique atento a frases como:\n* \"Quero falar com um atendente\"\n* \"Pode me transferir para um humano?\"\n* \"Quero falar com uma pessoa de verdade\"\n* \"Atendimento pessoal\"\n* \"Suporte humano\"\n\n**Ação Imediata:**\n1.  **Não tente resolver o problema.** Pare o que está fazendo.\n2.  **Gere uma saída JSON específica:** Sua próxima resposta DEVE ser um objeto JSON contendo duas chaves: `action` e `summary`. O `summary` deve ser um resumo de uma linha do problema do cliente até agora.\n    * **Formato Exato:** `{\"action\": \"escalate\", \"summary\": \"O cliente [nome ou domínio] precisa de ajuda com [descreva o problema em poucas palavras].\"}`\n    * **Exemplo Prático:** `{\"action\": \"escalate\", \"summary\": \"O cliente do domínio exemplo.com.br não consegue receber e-mails e já tentou acessar o webmail sem sucesso.\"}`\n3.  **NÃO envie este JSON para o cliente.** Este JSON é a sua comunicação secreta para o N8N. O N8N irá interceptá-lo. Sua resposta visível para o cliente deve ser a pergunta de confirmação que o N8N enviará."
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.agent",
+      "typeVersion": 2,
+      "position": [
+        660,
+        0
+      ],
+      "id": "0d9c11eb-706b-49c2-ae86-1f6d01806d3c",
+      "name": "AI Agent"
+    },
+    {
+      "parameters": {
+        "modelName": "models/gemini-2.0-flash",
+        "options": {
+          "temperature": 0.4
+        }
+      },
+      "type": "@n8n/n8n-nodes-langchain.lmChatGoogleGemini",
+      "typeVersion": 1,
+      "position": [
+        700,
+        220
+      ],
+      "id": "b4db807e-5769-4839-a1c5-3b0abec8085e",
+      "name": "Google Gemini Chat Model",
+      "credentials": {
+        "googlePalmApi": {
+          "id": "IoEDCTwMCin4UE3t",
+          "name": "Google Gemini(PaLM) Api account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "sessionIdType": "customKey",
+        "sessionKey": "={{ $('DADOS').item.json.chatId }}",
+        "sessionTTL": 3600,
+        "contextWindowLength": 10
+      },
+      "type": "@n8n/n8n-nodes-langchain.memoryRedisChat",
+      "typeVersion": 1.5,
+      "position": [
+        860,
+        220
+      ],
+      "id": "dba48b88-11ed-45ca-b9ce-f2d20af81c22",
+      "name": "Redis Chat Memory",
+      "credentials": {
+        "redis": {
+          "id": "m0xdvVBhrz6MzMeN",
+          "name": "Redis account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "Chatting",
+        "operation": "Send Seen",
+        "session": "={{ $('DADOS').item.json.session }}",
+        "chatId": "={{ $('DADOS').item.json.chatId }}",
+        "messageId": "={{ $('DADOS').item.json.payloud_id }}",
+        "participant": "",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-waha.WAHA",
+      "typeVersion": 202411,
+      "position": [
+        1020,
+        0
+      ],
+      "id": "de0988e0-f993-498d-9257-68199e4a431c",
+      "name": "WAHA",
+      "credentials": {
+        "wahaApi": {
+          "id": "dhm5lE7s8TAHLOP9",
+          "name": "WAHA account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "resource": "Chatting",
+        "operation": "Send Text",
+        "session": "={{ $('DADOS').item.json.session }}",
+        "chatId": "={{ $('DADOS').item.json.chatId }}",
+        "text": "={{ $('AI Agent').item.json.output }}",
+        "requestOptions": {}
+      },
+      "type": "n8n-nodes-waha.WAHA",
+      "typeVersion": 202411,
+      "position": [
+        1240,
+        0
+      ],
+      "id": "c7e7132d-5272-411c-b9ca-4efdd5d74910",
+      "name": "WAHA1",
+      "credentials": {
+        "wahaApi": {
+          "id": "dhm5lE7s8TAHLOP9",
+          "name": "WAHA account"
+        }
+      }
+    }
+  ],
+  "pinData": {
+    "Webhook": [
+      {
+        "json": {
+          "headers": {
+            "accept": "application/json, text/plain, */*",
+            "content-type": "application/json",
+            "user-agent": "WAHA/2025.6.4",
+            "x-webhook-request-id": "01JYA0EQDEJKWP845PH1XZXCDK",
+            "x-webhook-timestamp": "1750535200173",
+            "content-length": "2475",
+            "accept-encoding": "gzip, compress, deflate, br",
+            "host": "172.17.0.1:5678",
+            "connection": "keep-alive"
+          },
+          "params": {},
+          "query": {},
+          "body": {
+            "id": "evt_01jya0eqdcec5z8eeasr9zzc0f",
+            "timestamp": 1750535200173,
+            "event": "message",
+            "session": "default",
+            "metadata": {},
+            "me": {
+              "id": "5518981945723@c.us",
+              "pushName": "Ricardo Lima",
+              "jid": "5518981945723:56@s.whatsapp.net"
+            },
+            "payload": {
+              "id": "false_5518981993064@c.us_3F37D096320F30ECF571",
+              "timestamp": 1750535202,
+              "from": "5518981993064@c.us",
+              "fromMe": false,
+              "source": "app",
+              "body": "teste",
+              "to": null,
+              "participant": null,
+              "hasMedia": false,
+              "media": null,
+              "ack": 2,
+              "ackName": "DEVICE",
+              "replyTo": null,
+              "_data": {
+                "Info": {
+                  "Chat": "5518981993064@s.whatsapp.net",
+                  "Sender": "5518981993064:35@s.whatsapp.net",
+                  "IsFromMe": false,
+                  "IsGroup": false,
+                  "AddressingMode": "",
+                  "SenderAlt": "240080249741458:35@lid",
+                  "RecipientAlt": "",
+                  "BroadcastListOwner": "",
+                  "ID": "3F37D096320F30ECF571",
+                  "ServerID": 0,
+                  "Type": "text",
+                  "PushName": "Suporte Oxigenweb",
+                  "Timestamp": "2025-06-21T19:46:42Z",
+                  "Category": "",
+                  "Multicast": false,
+                  "MediaType": "",
+                  "Edit": "",
+                  "MsgBotInfo": {
+                    "EditType": "",
+                    "EditTargetID": "",
+                    "EditSenderTimestampMS": "0001-01-01T00:00:00Z"
+                  },
+                  "MsgMetaInfo": {
+                    "TargetID": "",
+                    "TargetSender": "",
+                    "DeprecatedLIDSession": null,
+                    "ThreadMessageID": "",
+                    "ThreadMessageSenderJID": ""
+                  },
+                  "VerifiedName": {
+                    "Certificate": {
+                      "details": "CMbU8qDy0N+3AhIGc21iOndhIhFTdXBvcnRlIE94aWdlbndlYg==",
+                      "signature": "ErOkdinW6eF4t1wXPWvhXHVMfXpjwnKyd3E8WImQTyq903c5ULYF6+vLq1uwFvnaUhGE3PuGtlo5fCg06C7fDw=="
+                    },
+                    "Details": {
+                      "serial": 175498029382281800,
+                      "issuer": "smb:wa",
+                      "verifiedName": "Suporte Oxigenweb"
+                    }
+                  },
+                  "DeviceSentMeta": null
+                },
+                "Message": {
+                  "extendedTextMessage": {
+                    "text": "teste",
+                    "contextInfo": {
+                      "expiration": 0,
+                      "ephemeralSettingTimestamp": 0,
+                      "disappearingMode": {
+                        "initiator": 0
+                      }
+                    }
+                  },
+                  "messageContextInfo": {
+                    "deviceListMetadata": {
+                      "senderKeyHash": "eptEcCry6kTSgg==",
+                      "senderTimestamp": 1750471186,
+                      "recipientKeyHash": "r3UBfRqwlrrr2w==",
+                      "recipientTimestamp": 1750534540
+                    },
+                    "deviceListMetadataVersion": 2
+                  }
+                },
+                "IsEphemeral": false,
+                "IsViewOnce": false,
+                "IsViewOnceV2": false,
+                "IsViewOnceV2Extension": false,
+                "IsDocumentWithCaption": false,
+                "IsLottieSticker": false,
+                "IsEdit": false,
+                "SourceWebMsg": null,
+                "UnavailableRequestID": "",
+                "RetryCount": 0,
+                "NewsletterMeta": null,
+                "RawMessage": {
+                  "extendedTextMessage": {
+                    "text": "teste",
+                    "contextInfo": {
+                      "expiration": 0,
+                      "ephemeralSettingTimestamp": 0,
+                      "disappearingMode": {
+                        "initiator": 0
+                      }
+                    }
+                  },
+                  "messageContextInfo": {
+                    "deviceListMetadata": {
+                      "senderKeyHash": "eptEcCry6kTSgg==",
+                      "senderTimestamp": 1750471186,
+                      "recipientKeyHash": "r3UBfRqwlrrr2w==",
+                      "recipientTimestamp": 1750534540
+                    },
+                    "deviceListMetadataVersion": 2
+                  }
+                },
+                "Status": 3
+              }
+            },
+            "environment": {
+              "version": "2025.6.4",
+              "engine": "GOWS",
+              "tier": "CORE",
+              "browser": null
+            }
+          },
+          "webhookUrl": "http://172.17.0.1:5678/webhook-test/webhook",
+          "executionMode": "test"
+        }
+      }
+    ],
+    "DADOS": [
+      {
+        "json": {
+          "session": "default",
+          "chatId": "5518981993064@c.us",
+          "pushName": "Suporte Oxigenweb",
+          "payloud_id": "false_5518981993064@c.us_3F37D096320F30ECF571",
+          "event": "message",
+          "message": "teste",
+          "fromMe": "false"
+        }
+      }
+    ]
+  },
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "DADOS",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "DADOS": {
+      "main": [
+        [
+          {
+            "node": "Switch",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Switch": {
+      "main": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Google Gemini Chat Model": {
+      "ai_languageModel": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_languageModel",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Redis Chat Memory": {
+      "ai_memory": [
+        [
+          {
+            "node": "AI Agent",
+            "type": "ai_memory",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "AI Agent": {
+      "main": [
+        [
+          {
+            "node": "WAHA",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "WAHA": {
+      "main": [
+        [
+          {
+            "node": "WAHA1",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "a4a96cb4-00da-495d-838c-4152304149c2",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "ce13f4bb3d78e3309daea414b861f79559028328d675c84d8d102b9a90592139"
+  },
+  "id": "rs9UNCPhVLM6WnOF",
+  "tags": []
+}
